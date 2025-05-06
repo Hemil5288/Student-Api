@@ -49,7 +49,7 @@ def get_all_students():
         try:
             student['subjects'] = json.loads(student['subjects'])
         except (TypeError, json.JSONDecodeError):
-            student['subjects'] = []  # fallback if something's wrong
+            student['subjects'] = []
     return jsonify(results), 200
 
 
@@ -103,8 +103,7 @@ def update_student(student_id):
     cursor.execute(sql, tuple(values))
     db.commit()
     return jsonify({"message": "Student updated successfully."}), 200
-
-# -------------------- DELETE --------------------
+    
 @app.route('/students/<int:student_id>', methods=['DELETE'])
 def delete_student(student_id):
     cursor = db.cursor()
